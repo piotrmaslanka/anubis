@@ -5,6 +5,8 @@ Sadly, it's expensive equiment, and I can't take it home like an Arduino. Theref
 
 If you ever come across helping with that heater - be welcome to use Anubis.
 
+Anubis requires Python 2.5+ and pySerial.
+
 # How to?
 
 First, install a software that creates two serial ports connected with a virtual cable (eg. com0com or Advanced Virtual COM Port). One of these will be used for controller (eg. LabView), and the other will be used by Anubis. Therefore, Anubis will impersonate a heater!
