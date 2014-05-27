@@ -34,9 +34,9 @@ class Controller(Thread):
         if should_schedule:
             # ok, a new order!
             self.currentSetpoint, self.timeRemaining = self.orders.pop()
-            print "Entering new mode, TEMP=%s, TIME=%s seconds" % (self.currentSetpoint, self.timeRemaining)
-            self.model.setpoint = self.currentSetpoint
             self.programNo += 1
+            print "Entering program %d, %sC for %s seconds" % (self.programNo, self.currentSetpoint, self.timeRemaining)
+            self.model.setpoint = self.currentSetpoint
             self.wasTempReached = False     
             self.status = 1
             return True
@@ -72,12 +72,15 @@ class Controller(Thread):
                     self.model.unset()
                     self.programNo = 0
                     self.status = 0
+                    print "Heating cycle finished. Have a nice day"
             else:
-                if abs(self.model.temperature - self.model.setpoint) > 2:
+                if (self.model.temperature+2) < self.model.setpoint:
                     self.status = 1
                 else:
                     if self.status == 1:
-                        print "Temperature reached, holding"
+                        print "Temperature reached, holding for %s seconds now" % (self.timeRemaining, )
                     self.status = 2
                         
                     self.timeRemaining -= 1
+                    if self.timeRemaining == 0:
+                        print "Program %s finished" % (self.programNo, )

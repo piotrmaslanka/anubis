@@ -1,7 +1,7 @@
 # coding=UTF-8
-print "Made-Up Devices Production Company Proudly Presents:"
-print "Anubis - a Virtual Heater for Heating Radiometers"
-print "(because you can't afford a real one)"
+print "Anubis - a heater simulator (because you can't afford a real one)"
+
+print "visit http://github.com/piotrmaslanka/anubis for source and license"
 
 print "Select COM port (enter stuff like COM1): "
 from serial import Serial
@@ -28,8 +28,7 @@ while True:
         cntrl.onNA()
     elif telecom.startswith(b'ST'):
         serial.write('ST%d%02d%03d\n' % (cntrl.status, cntrl.programNo, int(hpm.temperature), ))
-    
-    print "Received telegram "+telecom.strip()
+
 
 # Possible telegrams:
 #   TP <3 digits of temperature> <two digits of hours> <two digits of minutes> <two digits of seconds>

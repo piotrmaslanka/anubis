@@ -5,7 +5,7 @@ Sadly, it's expensive equiment, and I can't take it home like an Arduino. Theref
 
 If you ever come across helping with that heater - be welcome to use Anubis.
 
-Anubis requires Python 2.5+ and pySerial.
+Anubis requires Python 2.5+ and pySerial. See [here](LICENSE.md) for licensing.
 
 # How to?
 
