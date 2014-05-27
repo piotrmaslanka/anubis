@@ -17,11 +17,15 @@ class HeaterPhysicalModel(Thread):
         Thread.__init__(self)
         self.temperature = self.AMBIENT_TEMP        #: volatile public
         self.setpoint = self.AMBIENT_TEMP           #: volatile public, change to set setpoint
+
     
+    def unset(self):
+        """Remove any setpoints"""
+        self.setpoint = self.AMBIENT_TEMP
     
     def run(self):
         while True:
-            sleep(10)
+            sleep(1)
             self.iterate()
             print "TEMP=%.2s SETPOINT=%.2s" % (self.temperature, self.setpoint)
         
