@@ -116,11 +116,12 @@ class Controller(Thread):
             # What should I do?
             if self.timeRemaining == 0:
                 if not self.scheduleProgram():
+                    if self.status != 0:
+                        print "Heating cycle finished. Have a nice day"
                     # Nothing! Reset the heater
                     self.model.unset()
                     self.programNo = 0
                     self.status = 0
-                    print "Heating cycle finished. Have a nice day"
             else:
                 if (self.model.temperature+2) < self.model.setpoint:
                     self.status = 1
