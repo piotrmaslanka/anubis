@@ -142,17 +142,21 @@ cntrl.start()
 
 while True:
     telecom = serial.readline()
-    if telecom.startswith('TP'):
-        temp = int(telecom[2:5])
-        hrs = int(telecom[5:7])
-        mins = int(telecom[7:9])
-        secs = int(telecom[9:11])
-        cntrl.onTP(temp, hrs, mins, secs)
-    elif telecom.startswith('NA'):
-        cntrl.onNA()
-    elif telecom.startswith('ST'):
-        serial.write('ST%d%02d%03d\n' % (cntrl.status, cntrl.programNo, int(hpm.temperature), ))
-
+    try:
+        if telecom.startswith('TP'):
+            temp = int(telecom[2:5])
+            hrs = int(telecom[5:7])
+            mins = int(telecom[7:9])
+            secs = int(telecom[9:11])
+            cntrl.onTP(temp, hrs, mins, secs)
+        elif telecom.startswith('NA'):
+            cntrl.onNA()
+        elif telecom.startswith('ST'):
+            serial.write('ST%d%02d%03d\n' % (cntrl.status, cntrl.programNo, int(hpm.temperature), ))
+        else:
+            raise Exception()
+    except Exception as e:
+        print "Error: Telegram was %s, reason was %s" % (telecom, e)
 
 # Possible telegrams:
 #   TP <3 digits of temperature> <two digits of hours> <two digits of minutes> <two digits of seconds>
